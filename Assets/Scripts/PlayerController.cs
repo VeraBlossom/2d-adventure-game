@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Move()
     {
+        // test commit
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 }
