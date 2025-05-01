@@ -133,3 +133,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c25afb853032045879cfc3d1c887e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialoguePanel: {fileID: 0}
+  dialogueText: {fileID: 0}
+  firstTimeDialogues:
+  - Welcome to deadly forest
+  - Kill all the slimes
+  repeatDialogue: Finish your mission to go to next level
+  questTitle: Defeat all enemies
+  questDesc: Kill all slimes to move to Level 2
+  questTarget: 4

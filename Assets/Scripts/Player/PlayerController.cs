@@ -54,6 +54,8 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Update()
     {
+        if (TutorialUI.inputBlocked)
+            return;
         PlayerInput();
     }
 

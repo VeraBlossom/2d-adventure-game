@@ -44,6 +44,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            QuestManager.Instance.UpdateProgress();
+
             Instantiate(deathVFXPrefab, transform.position, Quaternion.identity);
             GetComponent<PickUpSpawner>().DropItems();
             Destroy(gameObject);

@@ -62,6 +62,8 @@ public class PlayerHealth : Singleton<PlayerHealth>
 
         ScreenShakeManager.Instance.ShakeScreen();
 
+        AudioManager.instance.PLaySound(AudioManager.SoundFx.hit);
+
         knockback.GetKnockedBack(hitTrasform, knockBackThrustAmount);
         StartCoroutine(flash.FlashRoutine());
 

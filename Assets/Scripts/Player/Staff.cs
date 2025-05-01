@@ -23,6 +23,7 @@ public class Staff : MonoBehaviour, IWeapon
     public void Attack()
     {
         myAnimator.SetTrigger(ATTACK_HASH);
+        AudioManager.instance.PLaySound(AudioManager.SoundFx.staff);
     }
     public void SpawnStaffProjectileAnimEvent()
     {

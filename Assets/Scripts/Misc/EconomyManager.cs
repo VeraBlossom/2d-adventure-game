@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class EconomyManager : Singleton<EconomyManager>
 {
@@ -10,15 +8,39 @@ public class EconomyManager : Singleton<EconomyManager>
 
     const string COIN_AMOUNT_TEXT = "Gold Amount Text";
 
-    public void UpdateCurrentGold()
+    public void UpdateCurrentGold(int amount = 1)
     {
-        currentGold += 1;
+        currentGold += amount;
+        RefreshUI();
+    }
 
+    public bool HasEnoughGold(int amount)
+    {
+        return currentGold >= amount;
+    }
+
+    public void SpendGold(int amount)
+    {
+        currentGold -= amount;
+        currentGold = Mathf.Max(currentGold, 0);
+        RefreshUI();
+    }
+
+    public int GetCurrentGold()
+    {
+        return currentGold;
+    }
+
+    private void RefreshUI()
+    {
         if (goldText == null)
         {
-            goldText = GameObject.Find(COIN_AMOUNT_TEXT).GetComponent<TMP_Text>();
+            goldText = GameObject.Find(COIN_AMOUNT_TEXT)?.GetComponent<TMP_Text>();
         }
 
-        goldText.text = currentGold.ToString("D3");
+        if (goldText != null)
+        {
+            goldText.text = currentGold.ToString("D3");
+        }
     }
 }

@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class UIFade : Singleton<UIFade>
 {
     [SerializeField] private Image fadeScreen;
     [SerializeField] private float fadeSpeed = 1f;
-
+    public GameObject dialoguePanel;
+    public TMP_Text dialogueText;
     private IEnumerator fadeRoutine;
 
     public void FadeToBlack()
