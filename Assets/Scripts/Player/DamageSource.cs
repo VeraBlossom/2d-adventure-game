@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DamageSource : MonoBehaviour
 {
+    //class xac dinh nguon sat thuong cua vu khi Player dang tan cong
     int damageAmount;
     private void Start()
     {

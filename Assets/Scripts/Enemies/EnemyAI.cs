@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private float roamChangeDirFloat = 2f;
+    [SerializeField] private float roamChangeDirFloat = 2f; //bien thoi gian cho phep enemy di chuyen truoc khi tim vi tri moi
     [SerializeField] private float attackRange = 0f;
     [SerializeField] private MonoBehaviour enemyType;
     [SerializeField] private float attackCooldown = 2f;
@@ -26,17 +26,20 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        //state dau tien la roaming
         enemyPathfinding = GetComponent<EnemyPathfinding>();
         state = State.Roaming;
     }
 
     private void Start()
     {
+        //Khi bat dau thi tim vi tri de bat dau di chuyen
         roamPosition = GetRoamingPosition();
     }
 
     private void Update()
     {
+        //thay doi trang thai lien tc
         MovementStateControl();
     }
 
@@ -46,7 +49,7 @@ public class EnemyAI : MonoBehaviour
         {
             default:
             case State.Roaming:
-                Roaming();
+                Roaming(); //goi ham di chuyen khi co state roaming
                 break;
             case State.Attacking:
                 Attacking();
@@ -54,31 +57,34 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //Ham di chuyen
     private void Roaming()
     {
         timeRoaming += Time.deltaTime;
 
-        enemyPathfinding.MoveTo(roamPosition);
-        if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < attackRange)
+        enemyPathfinding.MoveTo(roamPosition);//di chuyen den vi tri ngau nhien
+        if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) < attackRange)
         {
+            //neu ke dich o trong attackRange thi doi trang thai thanh tan cong (lay khoang cach cua ban than va ke dich va so sanh voi attackRange)
             state = State.Attacking;
         }
-        if(timeRoaming > roamChangeDirFloat)
+        if(timeRoaming > roamChangeDirFloat) //neu thoi gian di chuyen lon hon thoi gian cho phep thi tim 1 vi tri ngau nhien moi
         {
             roamPosition = GetRoamingPosition();
         }
     }
-
+    //Ham tan cong
     private void Attacking()
     {
-        if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > attackRange)
+        //neu dang tan cong ma ke dich ra khoi attackRange thi doi trang thai ve roaming
+        if (Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > attackRange)
         {
             state = State.Roaming;
         }
         //if(attackRange != 0 && canAttack)
         else
         {
-            if (canAttack)
+            if (canAttack) //kiem tra canAttack
             {
                 canAttack = false;
                 (enemyType as IEnemy).Attack();
@@ -97,12 +103,14 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    //ham dung lai sau khi tan cong va reset lai trang thai canAttack
     private IEnumerator AttackCooldownRoutine()
     {
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
 
+    //ham tra ve vi tri ngau nhien de di chuyen den do
     private Vector2 GetRoamingPosition()
     {
         timeRoaming = 0f;
